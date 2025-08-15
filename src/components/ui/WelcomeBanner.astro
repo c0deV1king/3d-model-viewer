@@ -1,0 +1,37 @@
+---
+import DialogAlert from './DialogAlert.astro';
+---
+
+<div id="container">
+  <main>
+    <div>
+      <h1 class="text-sm">c0dev1king's 3D Model Viewer</h1>
+    </div>
+  </main>
+  <DialogAlert />
+</div>
+
+<style>
+  #container {
+    font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+    height: 100%;
+  }
+
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: start;
+  }
+
+  pre {
+    font-family:
+      ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
+      monospace;
+    font-weight: normal;
+    background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+</style>
