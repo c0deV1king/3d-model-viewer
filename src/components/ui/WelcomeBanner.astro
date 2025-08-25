@@ -2,10 +2,10 @@
 import DialogAlert from './DialogAlert.astro';
 ---
 
-<div id="container">
+<div id="container" class="pointer-events-none">
   <main>
     <div>
-      <h1 class="text-sm">c0dev1king's 3D Model Viewer</h1>
+      <h1 id="ui" class="text-sm absolute">c0dev1king's 3D Model Viewer</h1>
     </div>
   </main>
   <DialogAlert />
@@ -13,25 +13,12 @@ import DialogAlert from './DialogAlert.astro';
 
 <style>
   #container {
-    font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
-    height: 100%;
+    height: 20px;
   }
 
   main {
-    height: 100%;
+    height: 20px;
     display: flex;
     justify-content: start;
-  }
-
-  pre {
-    font-family:
-      ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono',
-      monospace;
-    font-weight: normal;
-    background: linear-gradient(14deg, #d83333 0%, #f041ff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0;
   }
 </style>

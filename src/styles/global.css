@@ -8,3 +8,8 @@ html {
   margin-right: 0.5em;
   padding: 0;
 }
+
+#ui {
+  position: absolute;
+  z-index: 1;
+}
