@@ -33,28 +33,35 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // Lights
-scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-const pointLight = new THREE.PointLight(0xffffff, 1.2, 50);
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const pointLight = new THREE.PointLight(0xffffff, 2.5, 50);
 pointLight.position.set(2, 3, 1);
 scene.add(pointLight);
 
-// let model;
+let model;
 
-// new GLTFLoader().load(
-//   '/models/rocketship.glb',
-//   (gltf) => {
-//     model = gltf.scene;
-//     scene.add(model);
-//   },
-//   undefined,
-//   (err) => console.error('GLTF load error:', err)
-// );
+new GLTFLoader().load(
+  '/models/helmet/scene.gltf',
+  (gltf) => {
+    model = gltf.scene;
+    model.scale.set(2, 2, 2.0);
+    model.position.set(0, -0.5, 0);
+    scene.add(model);
+  },
+  undefined,
+  (err) => console.error('GLTF load error:', err)
+);
 
 const cube = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
-  new THREE.MeshStandardMaterial({ color: 0x4090ff })
+  new THREE.MeshLambertMaterial({ color: 0xfbf9fc, wireframe: false })
 );
-scene.add(cube);
+//scene.add(cube);
+
+// toggles wireframe
+document.addEventListener('toggleWireframe', () => {
+  model.material.wireframe = !model.material.wireframe;
+});
 
 // Resize handling
 function onResize() {
