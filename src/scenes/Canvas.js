@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+//import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 const container = document.getElementById('canvas');
 if (!container) {
@@ -12,14 +12,19 @@ if (!container) {
 const scene = new THREE.Scene();
 
 // Camera
+
+const cameraTarget = new THREE.Object3D();
+cameraTarget.position.set(-50, 40, 0);
+scene.add(cameraTarget);
+
 const camera = new THREE.PerspectiveCamera(
-  60,
+  90,
   container.clientWidth / container.clientHeight,
   0.1,
   1000
 );
-camera.position.set(2, 1, 1);
-camera.lookAt(0, 0, 0);
+camera.position.set(16, 5, 0);
+camera.lookAt(cameraTarget.position);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -29,19 +34,32 @@ renderer.setSize(container.clientWidth, container.clientHeight);
 container.appendChild(renderer.domElement);
 
 // Controls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
 
 // Lights
-scene.add(new THREE.AmbientLight(0xffffff, 0.6));
-const pointLight = new THREE.PointLight(0xffffff, 2.5, 50);
-pointLight.position.set(2, 3, 1);
-scene.add(pointLight);
+scene.add(new THREE.AmbientLight(0xff0000, 0.5));
+
+// Directional (key light) ----------------------------------------
+const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+keyLight.position.set(120, 100, 0);
+scene.add(keyLight);
+scene.add(keyLight.target);
+const targetObject = new THREE.Object3D();
+targetObject.position.set(-90, -10, 0);
+scene.add(targetObject);
+
+keyLight.target = targetObject;
+
+// Directional light helper (shows position and direction)
+const directionalLightHelper = new THREE.DirectionalLightHelper(keyLight, 2);
+scene.add(directionalLightHelper);
+// ----------------------------------------------------------------
 
 let model;
 
 new GLTFLoader().load(
-  '/models/helmet/scene.gltf',
+  '/models/japanese_forest_temple.glb',
   (gltf) => {
     model = gltf.scene;
     model.scale.set(2, 2, 2.0);
@@ -73,14 +91,14 @@ function onResize() {
 }
 window.addEventListener('resize', onResize);
 
-controls.update();
+//controls.update();
 // Render loop
 function animate() {
   requestAnimationFrame(animate);
   // if (cube) {
   //   cube.rotation.y += 0.005;
   // }
-  controls.update();
+  //controls.update();
   renderer.render(scene, camera);
 }
 animate();
